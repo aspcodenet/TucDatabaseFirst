@@ -14,28 +14,36 @@ namespace TucDatabaseFirst.Pages
     [BindProperties]
     public class IndexModel : PageModel
     {
-        public string Query { get; set; }
-
         private readonly ILogger<IndexModel> _logger;
         private readonly ApplicationDbContext _dbContext;
 
-        public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext dbContext)
+        public IndexModel(ILogger<IndexModel> logger,
+            ApplicationDbContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;
-            //var player = new HockeyPlayer
-            //{
-            //    JerseyNumber = 13,
-            //    Namn = "Mats Sundin"
-            //};
-            //_dbContext.Players.Add(player);
-            //_dbContext.SaveChanges();
         }
 
-        public void OnGet(string query)
+        public void OnGet()
         {
-            Query = query;
+            Players = _dbContext.Players
+                .Select(r => new PlayerListViewModel
+                {
+                    Id = r.Id,
+                    JerseyNumber = r.JerseyNumber,
+                    Name =  r.Namn
+
+                }).ToList();
+
         }
-        
+
+        public List<PlayerListViewModel> Players { get; set; }
+
+        public class PlayerListViewModel
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public int JerseyNumber { get; set; }
+        }
     }
 }

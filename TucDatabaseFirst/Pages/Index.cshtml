@@ -4,13 +4,33 @@
     ViewData["Title"] = "Home page";
 }
 
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Namn</th>
+        <th scope="col">Jersey</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var player in Model.Players)
+    {
+        <tr>
+            <td>@player.Name</td>
+            <td>@player.JerseyNumber</td>
+            <td>
+                <a asp-page="/Edit"
+                   asp-route-Id="@player.Id"
+                   class="btn btn-secondary active" role="button"
+                   aria-pressed="true">Edit</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<hr/>
+<a href="/Create" class="btn btn-secondary active" role="button"
+   aria-pressed="true">Create new</a>
 
 
 
-<form method="get">
-    <input type="text" name="query"/>
-    <input type="submit" value="Sök"/>
-</form>
-
-<hr />
-Du sökte på @Model.Query
