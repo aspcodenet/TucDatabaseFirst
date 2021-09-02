@@ -26,7 +26,7 @@ namespace TucDatabaseFirst
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer("Server=localhost;Database=TucDemo767;Trusted_Connection=True;")
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
             services.AddRazorPages();
         }
@@ -50,6 +50,7 @@ namespace TucDatabaseFirst
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

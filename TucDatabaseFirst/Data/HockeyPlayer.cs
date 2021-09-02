@@ -13,6 +13,7 @@
         public string Namn { get; set; }
         public int JerseyNumber { get; set; }
 
+        public string RegNummer { get; set; } //6 tecken
         public string City { get; set; }
     }
 }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TucDatabaseFirst.Data;
 
 namespace TucDatabaseFirst.Pages
 {
+    [Authorize(Roles="Admin, Coach")]
     [BindProperties]
     public class CreateModel : PageModel
     {
@@ -19,10 +21,17 @@ namespace TucDatabaseFirst.Pages
             _dbContext = dbContext;
         }
 
+        [Required(ErrorMessage = "Måste mata in dummer!")]
         public string Namn { get; set; }
-        public int JerseyNumber { get; set; }
-        public string City { get; set; }
         
+        
+        [Range(0,100)]
+        public int JerseyNumber { get; set; }
+
+        public string City { get; set; }
+
+        [MaxLength(6)]
+        public string Regno { get; set; }
 
         public void OnGet()
         {

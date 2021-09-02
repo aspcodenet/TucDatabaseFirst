@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using TucDatabaseFirst.Data;
 
 namespace TucDatabaseFirst.Pages
 {
+    [Authorize(Roles = "Admin, Coach")]
     [BindProperties]
     public class EditModel : PageModel
     {

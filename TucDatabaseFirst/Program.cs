@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TucDatabaseFirst.Data;
@@ -21,7 +22,8 @@ namespace TucDatabaseFirst
             {
                 var serviceProvider = scope.ServiceProvider;
                 var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
+                var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                DataInitializer.SeedData(dbContext, userManager);
             }
 
             host.Run();
